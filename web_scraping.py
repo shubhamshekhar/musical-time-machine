@@ -21,13 +21,11 @@ class Scrapping:
         song_list = soup.find_all(name="span", class_="chart-element__information__song text--truncate color--primary")
         self.songs = [song.getText() for song in song_list]
         self.songs = self.songs[:10]
-        print(self.songs)
 
     def get_song_uri(self):
         year = self.date.split("-")[0]
         for song in self.songs:
             result = self.sp.search(q=f"track:{song} year:{year}", type="track")
-            print(result)
             try:
                 uri = result["tracks"]["items"][0]["uri"]
                 self.song_uris.append(uri)
